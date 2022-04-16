@@ -6,17 +6,17 @@ import { PlayerEntity, PlayerModel } from './models';
 
 @Injectable()
 export class PlayersService {
-  constructor(
-    @InjectRepository(PlayerEntity)
-    protected readonly playerRepository: Repository<PlayerEntity>
-  ) {}
+	constructor(
+		@InjectRepository(PlayerEntity)
+		protected readonly playerRepository: Repository<PlayerEntity>
+	) {}
 
-  async create(data: NewPlayerInput): Promise<PlayerModel> {
-    const newPlayer = this.playerRepository.create(data);
-    return this.playerRepository.save(newPlayer);
-  }
+	async create(data: NewPlayerInput): Promise<PlayerModel> {
+		const newPlayer = this.playerRepository.create(data);
+		return this.playerRepository.save(newPlayer);
+	}
 
-  async findOneById(playerId: string): Promise<PlayerModel> {
-    return this.playerRepository.findOneBy({ playerId });
-  }
+	async findOneById(playerId: string): Promise<PlayerModel> {
+		return this.playerRepository.findOneBy({ playerId });
+	}
 }

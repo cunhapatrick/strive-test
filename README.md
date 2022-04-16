@@ -27,26 +27,50 @@ As a user I want to create a player
 - Run `yarn` to install npm dependencies
 - Run `yarn db:init` to migrate the database, this will create the `strive-hw` database on the db where you can create tables. The connection string is in the `.env` file
 
-## If using nestjs
+## Testing Application on playground
 
 - Run `yarn start` and visit `http://localhost:3333/graphql` to ensure the server is running
-- Run a simple test query in the graphql playground. This is an easy way to manually test your routes. The query (with codefirst schema) is defined in the `example.resolver.ts`. Codefirst is not a requirement, feel free to change to schema first if you wish!
+
+## Add a player on database
+- On playground, run this code:
 
 ```
-  query test {
-    test {
-      example
+  mutation {
+    addPlayer(newPlayerData: {
+      name: "name of the player",
+      jerseyNumber: "any number or null",
+      birthDate: "any date or null"
+    }) {
+      playerId,
+      name,
+			jerseyNumber,
+			birthDate
+    }
+  }
+```
+as a reminder, both jerseyNumber and birthDate are optional data, the only required field to create the player is it's name.
+
+## Get a player object
+- On playground, run this code:
+
+```
+  {
+    player {
+      playerId,
+      name,
+			jerseyNumber,
+			birthDate
     }
   }
 ```
 
-## If NOT using nestjs
+# Unit Tests
+- Run `yarn test` to start the unit tests.
 
-- It is 100% OK, trying to pick up a new framework for a HW assignment is definitely a challenge
-- I suggest deleting everything in `./src` and getting started with a `main.ts` type file as an entrypoint to the api server.
+## Integration Tests
+- Run `yarn test:e2e` to start the integration tests to ensure the function of the database and the graphql system;
 
-
-# Future Improvements
-- Fix birthDate type from string to date;
-- Implement global exception treatments;
-- Implement integration tests for postgres;
+## Notes about improvements
+- The birthDate was changed to string just for display because typeorm returns a string instead of a date object.
+- The global exception filters will provide a centralized treatment for the general exceptions that we will eventually get over the time.
+- The integration tests implemented on the project will ensure that the database and the graphql system are working properly together to create and to search for the players.
