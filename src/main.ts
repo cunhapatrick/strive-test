@@ -2,7 +2,7 @@ import { Logger, ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import * as dotenv from 'dotenv';
 import { AppModule } from './app.module';
-import { HttpExceptionFilter } from './filters/http-exception.filter';
+import { GraphqlExceptionFilter } from './filters/gql-exception.filter';
 dotenv.config();
 const PORT = process.env.PORT || 3333;
 
@@ -12,8 +12,12 @@ async function bootstrap() {
 	});
 
 	app
-		.useGlobalPipes(new ValidationPipe({ transform: true }))
-		.useGlobalFilters(new HttpExceptionFilter());
+		.useGlobalPipes(
+			new ValidationPipe({
+				transform: true,
+			})
+		)
+		.useGlobalFilters(new GraphqlExceptionFilter());
 
 	await app.listen(PORT);
 	Logger.log(`app listening on port ${PORT}`);

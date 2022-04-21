@@ -13,11 +13,11 @@ export class PlayersResolver {
 		const player = await this.playersService.findOneById(id);
 
 		if (!player) {
-			throw new NotFoundException(id);
+			throw new NotFoundException(`Not Found player ${id}`);
 		}
 		return {
 			...player,
-			birthDate: new Date(player.birthDate),
+			birthDate: player.birthDate ? new Date(player.birthDate) : null,
 		};
 	}
 
