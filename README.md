@@ -63,6 +63,9 @@ as a reminder, both jerseyNumber and birthDate are optional data, the only requi
     }
   }
 ```
+## Note to test on playground
+- The project has a migration but doesn't have seeds, so in order to test the "happy route" first run a mutation request to insert a player on the database then request a query to get the player data;
+- To test the exception, try to find
 
 # Unit Tests
 - Run `yarn test` to start the unit tests.
